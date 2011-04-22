@@ -1,4 +1,6 @@
 #!/usr/bin/perl
+# Author: Nolan Caudill
+# Date: 2011-04-21
 
 use strict;
 use warnings;
