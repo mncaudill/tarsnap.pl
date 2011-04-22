@@ -1,0 +1,8 @@
+tarsnap.pl
+=========
+Author: Nolan Caudill
+Date: 2011-04-21
+
+This is a simple script I wrote to keep a daily rotational backup using tarsnap.
+
+This is also the first perl script I've written in about 10 years so the style may be a little off.
