@@ -5,6 +5,8 @@
 use strict;
 use warnings;
 
+my $tarsnap = "/usr/local/bin/tarsnap";
+
 my $today = `date +"%Y-%m-%d"`;
 chomp $today;
 
@@ -23,8 +25,17 @@ my %backups  = (
     }
 );
 
+# Create today's backups
+foreach my $archive (keys %backups) {
+    my $dir = $backups{$archive}{'dir'};
+    my $backup_name = "$archive-$today";
+
+    print "Creating archive $backup_name\n";
+    `$tarsnap -c -f $backup_name $dir`;
+}
+
 # Fetch current backups
-my @archives = split("\n", `tarsnap --list-archives`);
+my @archives = split("\n", `$tarsnap --list-archives`);
 
 # Get list of backups for this machine
 my %curr_backups;
@@ -42,22 +53,14 @@ foreach my $archive (keys %curr_backups) {
     my $num_backups = @{$curr_backups{$archive}};
     my $req_backups = $backups{$archive}{'num'};
 
-    while ($num_backups >= $req_backups) {
+    while ($num_backups > $req_backups) {
         my $backup = shift @{$curr_backups{$archive}};
         print "Deleting $backup\n";
-        `tarsnap -d -f $backup`;
+        `$tarsnap -d -f $backup`;
         $num_backups--;
     }
 }
 
-# Create today's backups
-foreach my $archive (keys %backups) {
-    my $dir = $backups{$archive}{'dir'};
-    my $backup_name = "$archive-$today";
-
-    print "Creating archive $backup_name\n";
-    `tarsnap -c -f $backup_name $dir`;
-}
 
 print "###############\n";
 
