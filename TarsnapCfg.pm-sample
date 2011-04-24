@@ -1,0 +1,19 @@
+use strict;
+use warnings;
+
+package TarsnapCfg;
+
+our $tarsnap = "/usr/local/bin/tarsnap";
+
+# Config for backups (hyphens are important)
+# Backups will be stored in format "$archive-$date"
+our %backups  = (
+    'projects' => {
+        'dir' => '/home/nolan/projects',
+        'num' => 3,
+    },
+    'images' => {
+        'dir' => '/home/nolan/images',
+        'num' => 3,
+    },
+);

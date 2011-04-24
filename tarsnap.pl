@@ -5,25 +5,16 @@
 use strict;
 use warnings;
 
-my $tarsnap = "/usr/local/bin/tarsnap";
+use lib ".";
+use TarsnapCfg;
+
+my $tarsnap = $TarsnapCfg::tarsnap;
+my %backups = %TarsnapCfg::backups;
 
 my $today = `date +"%Y-%m-%d"`;
 chomp $today;
 
 print "Starting backup for $today\n===========\n";
-
-# Config for backups (hyphens are important)
-# Backups will be stored in format "$archive-$date"
-my %backups  = (
-    'projects' => {
-        'dir' => '/home/nolan/projects',
-        'num' => 3,
-    },
-    'images' => {
-        'dir' => '/home/nolan/images',
-        'num' => 3,
-    }
-);
 
 # Create today's backups
 foreach my $archive (keys %backups) {
