@@ -5,7 +5,9 @@
 use strict;
 use warnings;
 
-use lib ".";
+use FindBin;
+use lib $FindBin::Bin;
+
 use TarsnapCfg;
 
 my $tarsnap = $TarsnapCfg::tarsnap;
