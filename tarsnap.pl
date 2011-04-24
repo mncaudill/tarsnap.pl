@@ -5,13 +5,10 @@
 use strict;
 use warnings;
 
-use FindBin;
-use lib $FindBin::Bin;
+use FindBin qw($Bin);
+use lib $Bin;
 
-use TarsnapCfg;
-
-my $tarsnap = $TarsnapCfg::tarsnap;
-my %backups = %TarsnapCfg::backups;
+use TarsnapCfg qw($tarsnap %backups);
 
 my $today = `date +"%Y-%m-%d"`;
 chomp $today;
